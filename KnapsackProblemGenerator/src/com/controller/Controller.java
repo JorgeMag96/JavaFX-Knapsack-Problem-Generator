@@ -1,4 +1,4 @@
-package com.launcher;
+package com.controller;
 
 import com.models.Item;
 import com.models.Knapsack;
@@ -8,27 +8,16 @@ import com.tools.RatioHeuristic;
 import com.tools.ValueHeuristic;
 import com.tools.WeightHeuristic;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
-
-public class StartApplication extends Application {
-
-    @Override
-    public void start(Stage stage) {
-        Label l = new Label ("Welcome to the knapsack problem generator");
-        Scene scene = new Scene (new StackPane(l), 300, 200);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
-        
-        Knapsack ktest = new Knapsack(950);
+public class Controller {
+	
+	@FXML
+	public Button runHeuristic;
+	
+	public void handleButtonClick() {
+		Knapsack ktest = new Knapsack(950);
         Knapsack ktest2 = new Knapsack(950);
         Knapsack ktest3 = new Knapsack(950);
         
@@ -46,10 +35,10 @@ public class StartApplication extends Application {
         
         heuristicChoice(HeuristicType.WEIGHT, ktest, itest);
         heuristicChoice(HeuristicType.VALUE, ktest2, itest);
-        heuristicChoice(HeuristicType.RATIO, ktest3, itest);           
-    }
-    
-    public static void heuristicChoice(HeuristicType type, Knapsack knapsack, Item[] items) {
+        heuristicChoice(HeuristicType.RATIO, ktest3, itest);  
+	}
+	
+	public void heuristicChoice(HeuristicType type, Knapsack knapsack, Item[] items) {
 
     	Heuristic heuristic = null;
 
@@ -75,4 +64,5 @@ public class StartApplication extends Application {
     		heuristic.runHeuristic();
     	}
     }
+	
 }
