@@ -15,6 +15,7 @@ public class Main extends Application {
         Scene scene = new Scene (root, 720, 480);
         stage.setScene(scene);
         stage.setTitle("Selected Topics on Optimization - Homework 2");
+        stage.setResizable(false);
         stage.show();
     }
 
