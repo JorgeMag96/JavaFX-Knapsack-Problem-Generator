@@ -11,4 +11,4 @@ Desktop application with JavaFX GUI.
   * Select type of heuristic
   * Results get saved to .txt file
   
-**TODO: **Genetic algorithm heuristic implementation
+**Future features:** Genetic algorithm heuristic implementation
