@@ -12,30 +12,33 @@ import com.tools.WeightHeuristic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
-public class Controller{	
-	
+public class Controller{
+
 	public Controller() {
 		System.out.println("Initializing controller...");
 	}
 	
 	@FXML
     public void initialize() {
-		heuristicType.getItems().addAll(HeuristicType.values());
-		heuristicType.setValue(HeuristicType.RATIO);				
+		//heuristicType.getItems().addAll(HeuristicType.values());
+		//heuristicType.setValue(HeuristicType.RATIO);
     }
-		
+	
 	public void runHeuristicImp() {
 		
 		Knapsack knapsack = new Knapsack(950);
         
         Item[] items = ItemsGenerator.generate(Integer.parseInt(number_of_items.getText()), 10, 1000, 50, 500);
         
-        heuristicChoice(heuristicType.getValue(), knapsack, items);
+        heuristicChoice(heuristicType.getValue(), knapsack, items).runHeuristic();        
 	}
 	
-	public void heuristicChoice(HeuristicType type, Knapsack knapsack, Item[] items) {
+	private Heuristic heuristicChoice(HeuristicType type, Knapsack knapsack, Item[] items) {
 
     	Heuristic heuristic = null;
 
@@ -57,12 +60,22 @@ public class Controller{
     		}
     	}
 
-    	if(heuristic != null) {
-    		heuristic.runHeuristic();
-    	}
+    	return heuristic;
     }
 	
-	public Button runHeuristic;
-	public TextField number_of_items;
-	public ComboBox<HeuristicType> heuristicType;
+	public void generateInstances() {
+		System.out.println("Clicked");
+	}
+	
+	public Button 		runHeuristic;
+	public Button 		generateBtn;
+	public TextField 	number_of_items;
+	public TextField 	min_item_value;
+	public TextField 	max_item_value;
+	public TextField 	min_item_weight;
+	public TextField 	max_item_weight;
+	public Label 		knp_weight;
+	public Slider 		knp_weight_percent;
+	public Spinner<Integer> 		number_of_instances;
+	public ComboBox<HeuristicType> 	heuristicType;
 }
