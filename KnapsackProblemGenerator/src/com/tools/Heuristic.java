@@ -20,6 +20,14 @@ public abstract class Heuristic implements Comparator<Item>{
 	
 	public abstract void runHeuristic();
 	
+	public Knapsack getKnapsack() {
+		return knapsack;
+	}
+	
+	public Item[] getItems() {
+		return items;
+	}
+	
 	public Knapsack knapsack;
 	public Item[] items;
 }

@@ -1,5 +1,7 @@
 package com.launcher;
 
+import com.controller.Controller;
+
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +13,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = (Parent)loader.load();
         Scene scene = new Scene (root, 720, 480);
         stage.setScene(scene);
         stage.setTitle("Homework 2 - Selected Topics on Optimization - Jorge A. Villarreal Magaña");
         stage.setResizable(false);
+        Controller controller = (Controller)loader.getController();
+        controller.setStage(stage);
         stage.show();
     }
 
