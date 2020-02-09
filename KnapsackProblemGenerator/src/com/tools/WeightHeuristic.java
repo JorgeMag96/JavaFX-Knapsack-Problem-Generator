@@ -5,6 +5,13 @@ import java.util.Arrays;
 import com.models.Item;
 import com.models.Knapsack;
 
+/**
+ * This heuristic will select items to put into the knapsack based on their weight ratio.
+ * It will choose from the lightest to the heaviest item.
+ * 
+ * @param knapsack	- The knapsack to put the items.
+ * @param items		- Array of items to select from.
+ */
 public class WeightHeuristic extends Heuristic{
 
 	public WeightHeuristic(Knapsack knapsack, Item[] items) {

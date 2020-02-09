@@ -14,7 +14,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         Scene scene = new Scene (root, 720, 480);
         stage.setScene(scene);
-        stage.setTitle("Selected Topics on Optimization - Homework 2");
+        stage.setTitle("Homework 2 - Selected Topics on Optimization - Jorge A. Villarreal Magaña");
         stage.setResizable(false);
         stage.show();
     }

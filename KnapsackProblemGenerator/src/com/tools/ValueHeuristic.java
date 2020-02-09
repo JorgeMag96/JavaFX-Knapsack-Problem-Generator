@@ -5,6 +5,13 @@ import java.util.Arrays;
 import com.models.Item;
 import com.models.Knapsack;
 
+/**
+ * This heuristic will select items to put into the knapsack based on their value ratio.
+ * It will choose from the most to the less valuable item.
+ * 
+ * @param knapsack	- The knapsack to put the items.
+ * @param items		- Array of items to select from.
+ */
 public class ValueHeuristic extends Heuristic{
 
 	public ValueHeuristic(Knapsack knapsack, Item[] items) {
