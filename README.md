@@ -4,11 +4,11 @@ Selected topics on optimization, knapsack problem generator with UI
 Desktop application with JavaFX GUI.
 
 * **Generate tab:**
-  * Generates knapsack problem instances base on the parameters specified.
+  * Generates knapsack problem random instances based on fields
   * Instances get saved as .txt file
   
 * **Run tab:**
-  * Select type of heuristic
+  * Select instance file and type of heuristic
   * Results get saved to .txt file
   
 **Future features:** Genetic algorithm heuristic implementation
