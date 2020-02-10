@@ -13,7 +13,7 @@ public class SerializedInstance {
 	public static String saveInstance(Knapsack knapsack, Item[] items) throws IOException{
 		
 		//	Look for the next instance id in the settings .txt	
-		File settingsFile = new File(System.getProperty("user.dir")+"\\configurations\\settings.txt");
+		File settingsFile = new File(System.getProperty("user.dir")+"\\configurations\\instances.txt");
 		FileReader fr = new FileReader(settingsFile);
 	    char [] a = new char[50];
 	    fr.read(a);	    
