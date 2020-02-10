@@ -65,7 +65,7 @@
                                           <Insets bottom="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Slider fx:id="knp_weight_percent" blockIncrement="5.0" showTickLabels="true" showTickMarks="true">
+                                    <Slider fx:id="knp_weight_percent" showTickMarks="true">
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" />
                                        </VBox.margin>
