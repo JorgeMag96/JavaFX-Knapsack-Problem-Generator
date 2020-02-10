@@ -12,3 +12,6 @@ Desktop application with JavaFX GUI.
   * Results get saved to .txt file
   
 **Future features:** Genetic algorithm heuristic implementation
+
+![](images/Knapsack%20App%20screenshot.png)
+![](images/Knapsack%20App%20screenshot2.png)
