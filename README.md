@@ -13,5 +13,5 @@ Desktop application with JavaFX GUI.
   
 **Future features:** Genetic algorithm heuristic implementation
 
-![](images/Knapsack%20App%20screenshot.png)
-![](images/Knapsack%20App%20screenshot2.png)
+![](images/Knapsack%20App%20screenshot.PNG)
+![](images/Knapsack%20App%20screenshot2.PNG)
