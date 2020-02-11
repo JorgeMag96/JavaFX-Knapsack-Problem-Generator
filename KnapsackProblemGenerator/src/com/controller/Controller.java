@@ -221,7 +221,13 @@ public class Controller{
 	}
 	
 	private void resetFields() {
-		//TODO: Reset all field values
+		instance_file_field.setText("");
+		number_of_items.setText("");
+		min_item_value.setText("");
+		max_item_value.setText("");
+		min_item_weight.setText("");
+		max_item_weight.setText("");
+		knp_weight_percent.setValue(0);
 	}
 	
 	private void saveResults(Knapsack knapsack) {
