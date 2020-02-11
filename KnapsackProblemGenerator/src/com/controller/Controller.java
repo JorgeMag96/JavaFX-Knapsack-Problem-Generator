@@ -192,6 +192,7 @@ public class Controller{
 	
 	public void generateInstances() {
 		if(isOkToGenerateInstances()) {
+			ArrayList<String> newInstances = new ArrayList<>();
 			int numberOfItems 	= Integer.parseInt(number_of_items.getText());
 			int minValue 		= Integer.parseInt(min_item_value.getText());
 			int maxValue 		= Integer.parseInt(max_item_value.getText());
@@ -202,22 +203,24 @@ public class Controller{
 				
 				Item[] items 		= ItemsGenerator.generate(numberOfItems, minValue, maxValue, minWeight, maxWeight);			
 				Knapsack knapsack 	= new Knapsack(Integer.parseInt(knp_weight.getText()));
-				
+								
 				try {					
-					String newInstance = SerializedInstance.saveInstance(knapsack,items);
-					Alert sucess = new Alert(AlertType.INFORMATION);
-					sucess.setTitle("Information dialog");
-					sucess.setHeaderText("Instance generated successfully !");
-					sucess.setContentText("New instance generated: "+newInstance);
-					sucess.showAndWait();
+					newInstances.add(SerializedInstance.saveInstance(knapsack,items));
 				} catch (IOException e) {					
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Error Dialog");
 					alert.setHeaderText(e.getMessage());
-					alert.setContentText("Error while serializing instance");
+					alert.setContentText("Error while serializing instance ");
 					alert.showAndWait();
-				}
+				}				
 			}
+			StringBuilder content = new StringBuilder();
+			newInstances.forEach(instance -> content.append("New instance generated: "+instance+"\n"));
+			Alert sucess = new Alert(AlertType.INFORMATION);
+			sucess.setTitle("Information dialog");
+			sucess.setHeaderText("Instance(s) generated successfully !");
+			sucess.setContentText(content.toString());
+			sucess.showAndWait();
 		}		
 		resetFields();		
 	}
