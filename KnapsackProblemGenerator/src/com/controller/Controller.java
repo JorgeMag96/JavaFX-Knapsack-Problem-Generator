@@ -223,12 +223,12 @@ public class Controller{
 	}
 	
 	private void resetFields() {
-		instance_file_field.setText("");
-		number_of_items.setText("");
-		min_item_value.setText("");
-		max_item_value.setText("");
-		min_item_weight.setText("");
-		max_item_weight.setText("");
+		instance_file_field.clear();
+		number_of_items.clear();
+		min_item_value.clear();
+		max_item_value.clear();
+		min_item_weight.clear();
+		max_item_weight.clear();
 		knp_weight_percent.setValue(0);
 	}
 	
@@ -240,8 +240,18 @@ public class Controller{
 			writer.write("Knapsack result = "+knapsack.getTotalValue());
 			writer.flush();
 			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			Alert sucess = new Alert(AlertType.INFORMATION);
+			sucess.setTitle("Information dialog");
+			sucess.setHeaderText("Heuristic results successfully saved !");
+			sucess.setContentText("Result file: "+resultFileName);
+			sucess.showAndWait();
+			instance_file_field.clear();
+		} catch (IOException e) {					
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Dialog");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Error while saving results");
+			alert.showAndWait();
 		}
 		
 		System.out.println("Knapsack result = "+knapsack.getTotalValue());
