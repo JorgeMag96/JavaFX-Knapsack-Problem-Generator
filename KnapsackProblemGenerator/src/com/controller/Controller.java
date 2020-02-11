@@ -170,7 +170,7 @@ public class Controller{
 			for(int i = 1; i <= number_of_instances.getValue(); i++) {
 				
 				Item[] items 		= ItemsGenerator.generate(numberOfItems, minValue, maxValue, minWeight, maxWeight);			
-				Knapsack knapsack 	= new Knapsack(knp_weight_percent.valueProperty().intValue());
+				Knapsack knapsack 	= new Knapsack(Integer.parseInt(knp_weight.getText()));
 				
 				try {					
 					String newInstance = SerializedInstance.saveInstance(knapsack,items);
@@ -187,8 +187,12 @@ public class Controller{
 					alert.showAndWait();
 				}
 			}
-		}
-		
+		}		
+		resetFields();		
+	}
+	
+	private void resetFields() {
+		//TODO: Reset all field values
 	}
 	
 	private void saveResults(Knapsack knapsack) {

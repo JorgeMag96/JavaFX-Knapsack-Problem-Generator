@@ -13,8 +13,8 @@ public class SerializedInstance {
 	public static String saveInstance(Knapsack knapsack, Item[] items) throws IOException{
 		
 		//	Look for the next instance id in the settings .txt	
-		File settingsFile = new File(System.getProperty("user.dir")+"\\configurations\\instances.txt");
-		FileReader fr = new FileReader(settingsFile);
+		File instancesFile = new File(System.getProperty("user.dir")+"\\configurations\\instances.txt");
+		FileReader fr = new FileReader(instancesFile);
 	    char [] a = new char[50];
 	    fr.read(a);	    
 	    
@@ -27,7 +27,7 @@ public class SerializedInstance {
 	    int nextVal = Integer.parseInt(line.toString())+1;
 	    fr.close();
 	    
-	    FileWriter writer = new FileWriter(settingsFile);
+	    FileWriter writer = new FileWriter(instancesFile);
 		writer.write("instances:"+nextVal);
 		writer.flush();
 		writer.close();
