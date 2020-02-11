@@ -28,6 +28,7 @@ public class WeightHeuristic extends Heuristic{
 		do{
 			if (i == items.length) break;
 			added = knapsack.addItem(items[i]);
+			if(added) System.out.println("Added item "+i+" "+items[i]);
 			i++;
 		}while(added);
 		

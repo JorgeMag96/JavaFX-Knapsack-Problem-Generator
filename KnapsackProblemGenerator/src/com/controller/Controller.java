@@ -2,6 +2,8 @@ package com.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 import com.models.Item;
@@ -89,11 +91,6 @@ public class Controller{
 	
 	public void runHeuristicImp() {
 
-		if(instance_file_field.getText().isEmpty()) {
-			System.out.println("No instance file selected...");
-			return;
-		}
-		
 		try {
 			DeserializedInstance deserializedInstance = new DeserializedInstance(instance_file_field.getText());			
 			Knapsack knapsack = deserializedInstance.getKnapsack();	        
@@ -104,9 +101,9 @@ public class Controller{
 		}
 		catch(IOException e) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error Dialog");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Please select a valid path to an instance file.");
+			alert.setTitle(e.getMessage());
+			alert.setHeaderText("No results were produced");
+			alert.setContentText("Please select a valid instance file.");
 			alert.showAndWait();
 		}		
 	}
@@ -136,26 +133,58 @@ public class Controller{
     	return heuristic;
     }
 	
+	private boolean missingInformationDialog() {
+		Alert sucess = new Alert(AlertType.INFORMATION);
+		sucess.setTitle("Incomplete information to generate instances");
+		sucess.setHeaderText("No instances were generated.");
+		sucess.setContentText("Please make sure to provide all the required information.");
+		sucess.showAndWait();
+		return false;
+	}
+	
 	private boolean isOkToGenerateInstances() {
-		//TODO: Validate all generate tab fields.
+
+		List<String> errors = new ArrayList<>();
+		
+		if(number_of_items.getText().isEmpty()) {
+			return missingInformationDialog();
+		}
+		
 		if(!min_item_value.getText().isEmpty() || !max_item_value.getText().isEmpty()) {
 			if(Integer.parseInt(min_item_value.getText()) > Integer.parseInt(max_item_value.getText())) {
-				System.out.println("Item max value can't be less than min value");			
+				errors.add("Item max value cannot be less than min value");			
 				max_item_value.setText("");
-				return false;
 			}
 		}
 		else {
-			System.out.println("Please fill all the fields.");
-			return false;
+			return missingInformationDialog();
 		}
 		
-		if(Integer.parseInt(min_item_weight.getText()) > Integer.parseInt(max_item_weight.getText())) {
-			System.out.println("Item max weight can't be less than min weight");			
-			max_item_weight.setText("");
-			max_item_weight.requestFocus();
+		if(!min_item_weight.getText().isEmpty() || !max_item_weight.getText().isEmpty()) {
+			if(Integer.parseInt(min_item_weight.getText()) > Integer.parseInt(max_item_weight.getText())) {
+				errors.add("Item max weight cannot be less than min weight");			
+				max_item_weight.setText("");
+			}
+		}
+		else {
+			return missingInformationDialog();	
+		}
+		
+		if(knp_weight.getText().isEmpty()) {
+			return missingInformationDialog();
+		}
+		
+		if(!errors.isEmpty()){
+			Alert sucess = new Alert(AlertType.INFORMATION);
+			sucess.setTitle("Invalid values");
+			sucess.setHeaderText("No instances were generated.");
+			StringBuilder content = new StringBuilder();
+			errors.forEach(error -> content.append(error+"\n"));
+			sucess.setContentText(content.toString());
+			sucess.showAndWait();
 			return false;
 		}
+
 		return true;
 	}
 	

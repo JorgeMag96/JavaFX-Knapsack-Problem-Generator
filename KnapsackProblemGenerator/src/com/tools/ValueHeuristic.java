@@ -24,7 +24,9 @@ public class ValueHeuristic extends Heuristic{
 		Arrays.parallelSort(items, this);
 
 		for(int i = 0; i < items.length; i++) {
-			knapsack.addItem(items[i]);
+			if(knapsack.addItem(items[i])) {
+				System.out.println("Added item "+i+" "+items[i]);
+			}
 		}
 
 		System.out.println("Knapsack total value = "+knapsack.getTotalValue());
