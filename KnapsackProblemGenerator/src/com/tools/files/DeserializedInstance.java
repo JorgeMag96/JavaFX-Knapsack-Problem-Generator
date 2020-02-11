@@ -12,6 +12,8 @@ import com.models.Knapsack;
 public class DeserializedInstance {
 	
 	public DeserializedInstance(String path) throws IOException{
+		String pathFormatted = path.replace(System.getProperty("user.dir")+"\\instances\\", "");
+		this.instanceFileName = pathFormatted.replace(".txt", "");
 		startDeserialization(path);
 	}
 	
@@ -70,6 +72,11 @@ public class DeserializedInstance {
 		return items;
 	}
 	
+	public String getInstanceFileName() {
+		return instanceFileName;
+	}
+	
 	private Knapsack knapsack;
 	private Item[] items;
+	private String instanceFileName;
 }

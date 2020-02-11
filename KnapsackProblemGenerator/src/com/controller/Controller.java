@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,8 @@ public class Controller{
 			Item[] items = deserializedInstance.getItems();
 			Heuristic heuristic = heuristicChoice(heuristicType.getValue(), knapsack, items);
 		    heuristic.runHeuristic();
-		    saveResults(heuristic.getKnapsack());
+		    String resultFileName = "result_"+deserializedInstance.getInstanceFileName()+"_"+heuristicType.getValue().toString()+".txt";
+		    saveResults(heuristic.getKnapsack(), resultFileName);
 		}
 		catch(IOException e) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -230,9 +232,18 @@ public class Controller{
 		knp_weight_percent.setValue(0);
 	}
 	
-	private void saveResults(Knapsack knapsack) {
+	private void saveResults(Knapsack knapsack, String resultFileName) {
 		
-		//TODO: Here we are going to serialize the result of the heuristic and save it to the results folder.		
+		File resultFile = new File(System.getProperty("user.dir")+"\\results\\"+resultFileName);
+		try {
+			FileWriter writer = new FileWriter(resultFile);
+			writer.write("Knapsack result = "+knapsack.getTotalValue());
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("Knapsack result = "+knapsack.getTotalValue());
 		System.out.println("Heuristic results saved successfully.");
 	}
