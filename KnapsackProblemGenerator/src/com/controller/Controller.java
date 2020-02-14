@@ -46,12 +46,59 @@ public class Controller{
 		        );		
 		
 		UnaryOperator<Change> number = change -> (change.getControlNewText().matches("([1-9][0-9]*)?")) ? change : null;
+		ChangeListener<String> sliderCalcListener = (observable, oldValue, newValue) -> knapsackWeightCalc(knp_weight_percent.getValue());
 		
 		number_of_items.setTextFormatter(new TextFormatter<>(number));
+		number_of_items.textProperty().addListener(sliderCalcListener);
+		
 		min_item_value.setTextFormatter(new TextFormatter<>(number));
+		min_item_value.focusedProperty().addListener((observable, unfocused, focused) -> {
+			if(unfocused) {
+				int maxVal = Integer.parseInt(max_item_value.getText().isEmpty()?"0":max_item_value.getText());
+				int minVal = Integer.parseInt(min_item_value.getText().isEmpty()? "0":min_item_value.getText());
+				if( maxVal < minVal){
+					min_item_value.setText(String.valueOf(maxVal));
+					max_item_value.setText(String.valueOf(minVal));
+				}
+			}
+		});
+		
 		max_item_value.setTextFormatter(new TextFormatter<>(number));
+		max_item_value.focusedProperty().addListener((observable, unfocused, focused) -> {
+			if(unfocused) {
+				int maxVal = Integer.parseInt(max_item_value.getText().isEmpty()?"0":max_item_value.getText());
+				int minVal = Integer.parseInt(min_item_value.getText().isEmpty()? "0":min_item_value.getText());
+				if( maxVal < minVal){
+					max_item_value.setText(String.valueOf(minVal));
+					min_item_value.setText(String.valueOf(maxVal));
+				}
+			}
+		});
+		
 		min_item_weight.setTextFormatter(new TextFormatter<>(number));
-		max_item_weight.setTextFormatter(new TextFormatter<>(number));
+		min_item_weight.textProperty().addListener(sliderCalcListener);
+		min_item_weight.focusedProperty().addListener((observable, unfocused, focused) -> {
+			if(unfocused) {
+				int maxVal = Integer.parseInt(max_item_weight.getText().isEmpty()?"0":max_item_weight.getText());
+				int minVal = Integer.parseInt(min_item_weight.getText().isEmpty()? "0":min_item_weight.getText());
+				if( maxVal < minVal){
+					min_item_weight.setText(String.valueOf(maxVal));
+					max_item_weight.setText(String.valueOf(minVal));
+				}
+			}
+		});
+		max_item_weight.setTextFormatter(new TextFormatter<>(number));		
+		max_item_weight.textProperty().addListener(sliderCalcListener);
+		max_item_weight.focusedProperty().addListener((observable, unfocused, focused) -> {
+			if(unfocused) {
+				int maxVal = Integer.parseInt(max_item_weight.getText().isEmpty()?"0":max_item_weight.getText());
+				int minVal = Integer.parseInt(min_item_weight.getText().isEmpty()? "0":min_item_weight.getText());
+				if( maxVal < minVal){
+					max_item_weight.setText(String.valueOf(minVal));
+					min_item_weight.setText(String.valueOf(maxVal));
+				}
+			}
+		});
 		
 		knp_weight.setText(String.valueOf(knp_weight_percent.valueProperty().intValue()));
 		knp_weight_percent.setSnapToTicks(true);
@@ -60,13 +107,7 @@ public class Controller{
 		knp_weight_percent.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                     Number old_val, Number new_val) {
-		            	int numberOfItems 	= Integer.parseInt(number_of_items.getText().isEmpty()? "0":number_of_items.getText());
-		        		int minWeight		= Integer.parseInt(min_item_weight.getText().isEmpty()? "0":min_item_weight.getText());
-		        		int maxWeight		= Integer.parseInt(max_item_weight.getText().isEmpty()? "0":max_item_weight.getText());
-		        		
-		        		int val = ((numberOfItems*((minWeight+maxWeight)/2))*new_val.intValue())/100;
-		        		
-                        knp_weight.setText(String.valueOf(val));
+            		knapsackWeightCalc(new_val.intValue());            		
                 }			
             });
 		
@@ -75,6 +116,16 @@ public class Controller{
 				
 		System.out.println("Controller initialization successful.");
     }
+	
+	public void knapsackWeightCalc(Number new_val) {
+		int numberOfItems 	= Integer.parseInt(number_of_items.getText().isEmpty()? "0":number_of_items.getText());
+		int minWeight		= Integer.parseInt(min_item_weight.getText().isEmpty()? "0":min_item_weight.getText());
+		int maxWeight		= Integer.parseInt(max_item_weight.getText().isEmpty()? "0":max_item_weight.getText());
+		
+		int val = ((numberOfItems*((minWeight+maxWeight)/2))*new_val.intValue())/100;
+		
+        knp_weight.setText(String.valueOf(val));
+	}
 	
 	public void selectInstanceImp() {
 
