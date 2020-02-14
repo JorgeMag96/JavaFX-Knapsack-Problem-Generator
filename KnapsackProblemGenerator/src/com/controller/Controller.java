@@ -101,7 +101,7 @@ public class Controller{
 		System.out.println("Controller initialization successful.");
     }
 	
-	public void knapsackWeightCalc(Number new_val) {
+	private void knapsackWeightCalc(Number new_val) {
 		int numberOfItems 	= Integer.parseInt(number_of_items.getText().isEmpty()? "0":number_of_items.getText());
 		int minWeight		= Integer.parseInt(min_item_weight.getText().isEmpty()? "0":min_item_weight.getText());
 		int maxWeight		= Integer.parseInt(max_item_weight.getText().isEmpty()? "0":max_item_weight.getText());
@@ -171,11 +171,9 @@ public class Controller{
     }
 	
 	private boolean missingInformationDialog() {
-		Alert sucess = new Alert(AlertType.INFORMATION);
-		sucess.setTitle("Incomplete information to generate instances");
-		sucess.setHeaderText("No instances were generated.");
-		sucess.setContentText("Please make sure to provide all the required information.");
-		sucess.showAndWait();
+		showAlert(AlertType.INFORMATION, "Incomplete information to generate instances", 
+					"No instances were generated.", 
+					"Please make sure to provide all the required information.");		
 		return false;
 	}
 	
@@ -212,13 +210,9 @@ public class Controller{
 		}
 		
 		if(!errors.isEmpty()){
-			Alert sucess = new Alert(AlertType.INFORMATION);
-			sucess.setTitle("Invalid values");
-			sucess.setHeaderText("No instances were generated.");
 			StringBuilder content = new StringBuilder();
 			errors.forEach(error -> content.append(error+"\n"));
-			sucess.setContentText(content.toString());
-			sucess.showAndWait();
+			showAlert(AlertType.INFORMATION, "Invalid values", "No instances were generated.", content.toString());			
 			return false;
 		}
 
@@ -238,28 +232,20 @@ public class Controller{
 				
 				Item[] items 		= ItemsGenerator.generate(numberOfItems, minValue, maxValue, minWeight, maxWeight);			
 				Knapsack knapsack 	= new Knapsack(Integer.parseInt(knp_weight.getText()));
-								
-				try {					
+
+				try {
 					newInstances.add(SerializedInstance.saveInstance(knapsack,items));
-				} catch (IOException e) {					
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error Dialog");
-					alert.setHeaderText(e.getMessage());
-					alert.setContentText("Error while serializing instance ");
-					alert.showAndWait();
+				} catch (IOException e) {
+					showAlert(AlertType.ERROR, "Error Dialog", e.getMessage(), "Error while serializing instance ");
 				}				
 			}
 			StringBuilder content = new StringBuilder();
 			newInstances.forEach(instance -> content.append("New instance generated: "+instance+"\n"));
-			Alert sucess = new Alert(AlertType.INFORMATION);
-			sucess.setTitle("Information dialog");
-			sucess.setHeaderText("Instance(s) generated successfully !");
-			sucess.setContentText(content.toString());
-			sucess.showAndWait();
+			showAlert(AlertType.INFORMATION, "Information dialog", "Instance(s) generated successfully !", content.toString());			
 		}		
 		resetFields();		
 	}
-	
+
 	private void resetFields() {
 		instance_file_field.clear();
 		number_of_items.clear();
@@ -278,22 +264,23 @@ public class Controller{
 			writer.write("Knapsack result = "+knapsack.getTotalValue());
 			writer.flush();
 			writer.close();
-			Alert sucess = new Alert(AlertType.INFORMATION);
-			sucess.setTitle("Information dialog");
-			sucess.setHeaderText("Heuristic results successfully saved !");
-			sucess.setContentText("Result file: "+resultFileName);
-			sucess.showAndWait();
+			showAlert(AlertType.INFORMATION, "Information dialog","Heuristic results successfully saved !","Result file: "+resultFileName);
+			Alert sucess = new Alert(AlertType.INFORMATION);			
 			instance_file_field.clear();
-		} catch (IOException e) {					
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error Dialog");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Error while saving results");
-			alert.showAndWait();
+		} catch (IOException e) {
+			showAlert(AlertType.ERROR, "Error Dialog", e.getMessage(),"Error while saving results");			
 		}
 		
 		System.out.println("Knapsack result = "+knapsack.getTotalValue());
 		System.out.println("Heuristic results saved successfully.");
+	}
+	
+	private void showAlert(AlertType type, String title, String header, String content) {
+		Alert alert = new Alert(type);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
 	
 	public void setStage(Stage stage) {
