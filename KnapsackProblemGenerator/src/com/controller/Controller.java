@@ -1,36 +1,20 @@
 package com.controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-import com.models.Item;
-import com.models.Knapsack;
-import com.tools.Heuristic;
-import com.tools.HeuristicType;
-import com.tools.ItemsGenerator;
-import com.tools.RatioHeuristic;
-import com.tools.ValueHeuristic;
-import com.tools.WeightHeuristic;
-import com.tools.files.DeserializedInstance;
-import com.tools.files.SerializedInstance;
+import com.models.*;
+import com.tools.*;
+import com.tools.files.*;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
