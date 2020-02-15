@@ -21,7 +21,7 @@ public class RatioHeuristic extends Heuristic{
 	@Override
 	public void runHeuristic() {
 		System.out.println("Running "+getClass().getSimpleName());
-		Arrays.sort(items, this);
+		Arrays.parallelSort(items, this);
 
 		for(int i = 0; i < items.length; i++) {
 			if(knapsack.addItem(items[i])){
