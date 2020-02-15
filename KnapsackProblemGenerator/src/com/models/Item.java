@@ -1,7 +1,10 @@
 package com.models;
 
-public class Item{
+import java.io.Serializable;
 
+public class Item implements Serializable{
+	private static final long serialVersionUID = -7852913657869508413L;
+	
 	public Item (int value, int weight) {
 		this.value = value;
 		this.weight = weight;

@@ -1,9 +1,11 @@
 package com.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Knapsack {
+public class Knapsack implements Serializable{
+	private static final long serialVersionUID = -1064905928087474608L;
 
 	public Knapsack(int max_cap) {
 		this.WEIGHT_CAP = max_cap;
