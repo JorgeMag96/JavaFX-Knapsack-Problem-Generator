@@ -106,9 +106,9 @@ public class Controller{
 		int minWeight		= Integer.parseInt(min_item_weight.getText().isEmpty()? "0":min_item_weight.getText());
 		int maxWeight		= Integer.parseInt(max_item_weight.getText().isEmpty()? "0":max_item_weight.getText());
 		
-		int val = ((numberOfItems*((minWeight+maxWeight)/2))*new_val.intValue())/100;
+		float val = numberOfItems*((minWeight+maxWeight)/2.0f)*(new_val.floatValue()/100);
 		
-        knp_weight.setText(String.valueOf(val));
+        knp_weight.setText(String.valueOf((int)val));
 	}
 	
 	public void selectInstanceImp() {
