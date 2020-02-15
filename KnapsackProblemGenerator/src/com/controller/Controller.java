@@ -132,16 +132,17 @@ public class Controller{
 			Knapsack knapsack = deserializedInstance.getKnapsack();	        
 			Item[] items = deserializedInstance.getItems();
 			Heuristic heuristic = heuristicChoice(heuristicType.getValue(), knapsack, items);
+			long time = System.currentTimeMillis();
 		    heuristic.runHeuristic();
+		    long timeResult = (System.currentTimeMillis()-time)/1000;
+		    System.out.println("Heuristic time = "+timeResult+" seconds");
 		    String resultFileName = "result_"+deserializedInstance.getInstanceFileName()+"_"+heuristicType.getValue().toString()+".txt";
 		    saveResults(heuristic.getKnapsack(), resultFileName);
 		}
 		catch(IOException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle(e.getMessage());
-			alert.setHeaderText("No results were produced");
-			alert.setContentText("Please select a valid instance file.");
-			alert.showAndWait();
+			showAlert(AlertType.ERROR, e.getMessage(), 
+					"No results were produced", 
+					"Please select a valid instance file.");				
 		}		
 	}
 	
@@ -264,8 +265,7 @@ public class Controller{
 			writer.write("Knapsack result = "+knapsack.getTotalValue());
 			writer.flush();
 			writer.close();
-			showAlert(AlertType.INFORMATION, "Information dialog","Heuristic results successfully saved !","Result file: "+resultFileName);
-			Alert sucess = new Alert(AlertType.INFORMATION);			
+			showAlert(AlertType.INFORMATION, "Information dialog","Heuristic results successfully saved !","Result file: "+resultFileName);					
 			instance_file_field.clear();
 		} catch (IOException e) {
 			showAlert(AlertType.ERROR, "Error Dialog", e.getMessage(),"Error while saving results");			

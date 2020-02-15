@@ -41,8 +41,15 @@ public class ValueHeuristic extends Heuristic{
 		else if(o1.getValue() < o2.getValue()) {
 			return 1;
 		}
-
-		return 0;
+		else {
+			if(o1.getWeight() > o2.getWeight()) {
+				return 1;
+			}
+			else if(o1.getWeight() < o2.getWeight()) {
+				return -1;
+			}
+			return 0;
+		}		
 	}
 
 }
