@@ -132,12 +132,12 @@ public class Controller{
 			Knapsack knapsack = deserializedInstance.getKnapsack();	        
 			Item[] items = deserializedInstance.getItems();
 			Heuristic heuristic = heuristicChoice(heuristicType.getValue(), knapsack, items);
-			long time = System.currentTimeMillis();
-		    heuristic.runHeuristic();
+			long time = System.currentTimeMillis();			
+			heuristic.runHeuristic();			
 		    long timeResult = (System.currentTimeMillis()-time)/1000;
 		    System.out.println("Heuristic time = "+timeResult+" seconds");
 		    String resultFileName = "result_"+deserializedInstance.getInstanceFileName()+"_"+heuristicType.getValue().toString()+".txt";
-		    saveResults(heuristic.getKnapsack(), resultFileName);
+		    saveResults(heuristic.getKnapsack(), resultFileName, timeResult);
 		}
 		catch(IOException e) {
 			showAlert(AlertType.ERROR, e.getMessage(), 
@@ -257,7 +257,7 @@ public class Controller{
 		knp_weight_percent.setValue(0);
 	}
 	
-	private void saveResults(Knapsack knapsack, String resultFileName) {
+	private void saveResults(Knapsack knapsack, String resultFileName, long time) {
 		
 		File resultFile = new File(System.getProperty("user.dir")+"\\results\\"+resultFileName);
 		try {
@@ -265,7 +265,7 @@ public class Controller{
 			writer.write("Knapsack result = "+knapsack.getTotalValue());
 			writer.flush();
 			writer.close();
-			showAlert(AlertType.INFORMATION, "Information dialog","Heuristic results successfully saved !","Result file: "+resultFileName);					
+			showAlert(AlertType.INFORMATION, "Information dialog","Heuristic results successfully saved !\nRun time = "+time+" seconds.","Result file: "+resultFileName);					
 			instance_file_field.clear();
 		} catch (IOException e) {
 			showAlert(AlertType.ERROR, "Error Dialog", e.getMessage(),"Error while saving results");			
