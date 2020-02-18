@@ -30,4 +30,8 @@ public abstract class Heuristic implements Comparator<Item>{
 	
 	public Knapsack knapsack;
 	public Item[] items;
+	
+	public enum type {
+		RATIO, VALUE, WEIGHT;
+	}
 }

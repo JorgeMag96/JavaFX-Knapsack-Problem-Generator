@@ -95,8 +95,8 @@ public class Controller{
                 }			
             });
 		
-		heuristicType.getItems().addAll(HeuristicType.values());
-		heuristicType.setValue(HeuristicType.RATIO);
+		heuristicType.getItems().addAll(Heuristic.type.values());
+		heuristicType.setValue(Heuristic.type.RATIO);
 				
 		System.out.println("Controller initialization successful.");
     }
@@ -131,9 +131,9 @@ public class Controller{
 			DeserializedInstance deserializedInstance = new DeserializedInstance(instance_file_field.getText());			
 			Knapsack knapsack = deserializedInstance.getKnapsack();	        
 			Item[] items = deserializedInstance.getItems();
-			Heuristic heuristic = heuristicChoice(heuristicType.getValue(), knapsack, items);
-			long time = System.currentTimeMillis();			
-			heuristic.runHeuristic();			
+			Heuristic heuristic = HeuristicFactory.getHeuristic(heuristicType.getValue(), knapsack, items);
+			long time = System.currentTimeMillis();
+			heuristic.runHeuristic();
 		    long timeResult = (System.currentTimeMillis()-time)/1000;
 		    System.out.println("Heuristic time = "+timeResult+" seconds");
 		    String resultFileName = "result_"+deserializedInstance.getInstanceFileName()+"_"+heuristicType.getValue().toString()+".txt";
@@ -145,31 +145,6 @@ public class Controller{
 					"Please select a valid instance file.");				
 		}		
 	}
-	
-	private Heuristic heuristicChoice(HeuristicType type, Knapsack knapsack, Item[] items) {
-
-    	Heuristic heuristic = null;
-
-    	switch(type) {
-    		case RATIO:{
-    			heuristic = new RatioHeuristic(knapsack, items);
-    			break;
-    		}
-    		case VALUE:{
-    			heuristic = new ValueHeuristic(knapsack, items);
-    			break;
-    		}
-    		case WEIGHT:{
-    			heuristic = new WeightHeuristic(knapsack, items);
-    			break;
-    		}
-    		default:{
-    			System.out.println("Heuristic type selection error");
-    		}
-    	}
-
-    	return heuristic;
-    }
 	
 	private boolean missingInformationDialog() {
 		showAlert(AlertType.INFORMATION, "Incomplete information to generate instances", 
@@ -300,5 +275,5 @@ public class Controller{
 	public Label 		knp_weight;
 	public Slider 		knp_weight_percent;
 	public Spinner<Integer> 		number_of_instances;
-	public ComboBox<HeuristicType> 	heuristicType;	
+	public ComboBox<Heuristic.type> 	heuristicType;	
 }
